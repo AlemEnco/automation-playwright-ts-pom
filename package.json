@@ -1,0 +1,54 @@
+{
+  "name": "shipping-platform-automation",
+  "version": "1.0.0",
+  "description": "Automated testing framework for shipping platform using Playwright, TypeScript, and PostgreSQL",
+  "main": "index.js",
+  "scripts": {
+    "build": "swc src -d dist --config-file .swcrc",
+    "build:watch": "swc src -d dist --config-file .swcrc --watch",
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:ui": "playwright test --ui",
+    "test:report": "playwright show-report",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio",
+    "db:migrate": "prisma migrate dev",
+    "db:reset": "prisma migrate reset",
+    "setup": "npm run db:generate && npm run build",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "format": "prettier --write src/**/*.ts"
+  },
+  "keywords": [
+    "automation",
+    "testing",
+    "playwright",
+    "typescript",
+    "postgresql",
+    "e2e",
+    "qa"
+  ],
+  "author": "AlemEnco <acorcuerae@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.54.1",
+    "@swc/cli": "^0.1.62",
+    "@swc/core": "^1.3.95",
+    "@types/node": "^20.8.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.50.0",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.5.0",
+    "dotenv": "^16.3.1",
+    "prisma": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
