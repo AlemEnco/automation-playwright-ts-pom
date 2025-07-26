@@ -37,4 +37,12 @@ test.describe('Simple Login Tests', () => {
     const isLogoutButtonVisible = await loginPage.isLogoutButtonVisible();
     expect(isLogoutButtonVisible).toBe(true);
   });
+
+  test('should fail login with invalid credentials', async () => {
+    // Act - Perform login with hardcoded invalid credentials
+    await loginPage.login('invalid_user', 'invalid_password');
+
+    // Assert - Verify failed login
+    await loginPage.validateFailedLogin();
+  });
 });

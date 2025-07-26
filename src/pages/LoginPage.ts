@@ -20,6 +20,9 @@ export class LoginPage extends BasePage {
   private readonly logoutButton: Locator;
   private readonly successPageTitle: Locator;
 
+  // Error page elements
+  private readonly errorMessage: Locator;
+
   constructor(page: Page) {
     super(page);
     
@@ -33,6 +36,9 @@ export class LoginPage extends BasePage {
     this.successMessage = this.page.locator('.post-title');
     this.logoutButton = this.page.locator('a:has-text("Log out")');
     this.successPageTitle = this.page.locator('h1');
+
+    // Error page locators
+    this.errorMessage = this.page.locator('#error');
   }
 
   /**
@@ -89,6 +95,14 @@ export class LoginPage extends BasePage {
   }
 
   /**
+   * Validate login page is loaded
+   */
+  public async validateFailedLogin(): Promise<void> {
+    await this.assertElementVisible(this.errorMessage, 'Error message should be visible');
+    await this.assertElementContainsText(this.errorMessage, 'Your username is invalid!', 'Error message should contain "Your username is invalid!"');
+  }
+
+  /**
    * Validate successful login
    */
   public async validateSuccessfulLogin(): Promise<void> {
@@ -112,7 +126,7 @@ export class LoginPage extends BasePage {
     }
   }
 
-    /**
+  /**
    * Get success message text
    */
   public async getSuccessMessage(): Promise<string> {
@@ -120,7 +134,7 @@ export class LoginPage extends BasePage {
     return await this.getElementText(this.successMessage);
   }
 
-    /**
+  /**
    * Check if logout button is visible
    */
   public async isLogoutButtonVisible(): Promise<boolean> {
