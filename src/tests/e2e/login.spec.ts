@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
-import { environment } from '../config/environment';
+import { environment } from '../../config/environment';
+import { LoginPage } from '../../pages/LoginPage';
 
 /**
  * Simple Login Test Suite (without database)
