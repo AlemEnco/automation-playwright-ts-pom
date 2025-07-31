@@ -1,13 +1,15 @@
 import { test, expect } from '@playwright/test';
 import fileData from '../../../dataPrueba/file.json';
+import { environment } from '../../../config/environment';
 
 /**
  * Simple Login Test Suite (without database)
  * Tests basic API functionality using Page Object Model
  */
 test('Flujo completo: login, importación y validación de errores', async ({ request }) => {
+  const apiBaseUrl = environment.apiBaseUrlImportacionDev;
   // 1. Login: POST /auth
-  const authResponse = await request.post('https://ws-dev.olvaexpress.pe/auth', {
+  const authResponse = await request.post(`${apiBaseUrl}/auth`, {
     data: {
       username: "user_import_excel",
       password: "querSiANORDIuSENtIcSTatESchYDIon",
@@ -28,7 +30,7 @@ test('Flujo completo: login, importación y validación de errores', async ({ re
   };
 
   // 2. POST /v2/tracking/import con Authorization
-  const postResponse = await request.post('https://ws-dev.olvaexpress.pe/v2/tracking/import', {
+  const postResponse = await request.post(`${apiBaseUrl}/v2/tracking/import`, {
     headers: authHeader,
     data: {
       idSede: "43",
@@ -46,7 +48,7 @@ test('Flujo completo: login, importación y validación de errores', async ({ re
   expect(queueId).toBeDefined();
 
   // 3. GET /v2/queue/:id con Authorization
-  const getResponse = await request.get(`https://ws-dev.olvaexpress.pe/v2/queue/${queueId}`, {
+  const getResponse = await request.get(`${apiBaseUrl}/v2/queue/${queueId}`, {
     headers: authHeader
   });
 

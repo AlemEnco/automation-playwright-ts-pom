@@ -10,10 +10,9 @@ config({ path: path.resolve(process.cwd(), '.env') });
 export interface EnvironmentConfig {
   // Node environment
   nodeEnv: string;
-  
+
   // Application URLs
   baseUrl: string;
-  apiBaseUrl: string;
 
   // Database configuration
   database: {
@@ -30,7 +29,7 @@ export interface EnvironmentConfig {
       idleTimeout: number;
     };
   };
-  
+
   // Test configuration
   test: {
     headless: boolean;
@@ -41,29 +40,37 @@ export interface EnvironmentConfig {
     username: string;
     password: string;
   };
-  
+
   // Playwright configuration
   playwright: {
     storageStatePath: string;
     startLocalServer: boolean;
   };
-  
+
   // Logging configuration
   logging: {
     level: string;
     file: string;
   };
-  
+
   // Media configuration
   media: {
     screenshotMode: string;
     videoMode: string;
     traceMode: string;
   };
-  
+
   // Environment specific
   environment: string;
   testSuite: string;
+
+  // API configuration
+  apiBaseUrlImportacionDev: string;
+  apiBaseUrlImportacionProd: string;
+  apiBaseUrlImportacionv4: string;
+  apiBaseUrlGeoDev: string;
+  apiBaseUrlGeoProd: string;
+  apiBaseUrlGeoApiv4: string;
 }
 
 /**
@@ -71,10 +78,9 @@ export interface EnvironmentConfig {
  */
 export const environment: EnvironmentConfig = {
   nodeEnv: process.env.NODE_ENV || 'development',
-  
+
   baseUrl: process.env.BASE_URL!, // is obtained from the .env file
-  apiBaseUrl: process.env.API_BASE_URL || '',
-  
+
   database: {
     url: process.env.DATABASE_URL!,
     host: process.env.DB_HOST || 'localhost', // is obtained from the .env file
@@ -89,7 +95,7 @@ export const environment: EnvironmentConfig = {
       idleTimeout: parseNumber(process.env.DB_POOL_IDLE_TIMEOUT, 30000),
     },
   },
-  
+
   test: {
     headless: parseBoolean(process.env.HEADLESS, true),
     browser: process.env.BROWSER || 'chromium',
@@ -99,25 +105,32 @@ export const environment: EnvironmentConfig = {
     username: process.env.TEST_USERNAME!,
     password: process.env.TEST_PASSWORD!,
   },
-  
+
   playwright: {
     storageStatePath: process.env.STORAGE_STATE_PATH || './auth-state.json',
     startLocalServer: parseBoolean(process.env.START_LOCAL_SERVER, false),
   },
-  
+
   logging: {
     level: process.env.LOG_LEVEL || 'info',
     file: process.env.LOG_FILE || './logs/test.log',
   },
-  
+
   media: {
     screenshotMode: process.env.SCREENSHOT_MODE || 'only-on-failure',
     videoMode: process.env.VIDEO_MODE || 'retain-on-failure',
     traceMode: process.env.TRACE_MODE || 'on-first-retry',
   },
-  
+
   environment: process.env.ENVIRONMENT || 'development', // is obtained from the .env file
   testSuite: process.env.TEST_SUITE || 'smoke',
+
+  apiBaseUrlImportacionDev: process.env.API_BASE_URL_IMPORTACION_DEV || '', // is obtained from the .env file
+  apiBaseUrlImportacionProd: process.env.API_BASE_URL_IMPORTACION_PROD || '',
+  apiBaseUrlImportacionv4: process.env.API_BASE_URL_IMPORTACIONV4 || '',
+  apiBaseUrlGeoDev: process.env.API_BASE_URL_GEO_DEV || '',
+  apiBaseUrlGeoProd: process.env.API_BASE_URL_GEO_PROD || '',
+  apiBaseUrlGeoApiv4: process.env.API_BASE_URL_GEO_API_v4 || '',
 };
 
 function parseNumber(value: string | undefined, defaultValue: number): number {
