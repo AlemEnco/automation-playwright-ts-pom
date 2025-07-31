@@ -71,6 +71,9 @@ export interface EnvironmentConfig {
   apiBaseUrlGeoDev: string;
   apiBaseUrlGeoProd: string;
   apiBaseUrlGeoApiv4: string;
+
+  //tokens
+  geoXApiKey: string;
 }
 
 /**
@@ -131,6 +134,7 @@ export const environment: EnvironmentConfig = {
   apiBaseUrlGeoDev: process.env.API_BASE_URL_GEO_DEV || '',
   apiBaseUrlGeoProd: process.env.API_BASE_URL_GEO_PROD || '',
   apiBaseUrlGeoApiv4: process.env.API_BASE_URL_GEO_API_v4 || '',
+  geoXApiKey: process.env.GEO_X_API_KEY || ''
 };
 
 function parseNumber(value: string | undefined, defaultValue: number): number {
