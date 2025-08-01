@@ -1,0 +1,9 @@
+{
+    "loginData": {
+        "username": "user_import_excel",
+        "password": "querSiANORDIuSENtIcSTatESchYDIon",
+        "grant_type": "password",
+        "client_id": "import_excel",
+        "client_secret": "import"
+    }
+}

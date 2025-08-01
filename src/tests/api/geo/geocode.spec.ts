@@ -16,8 +16,6 @@ test.beforeEach(async () => {
       'x-api-key': environment.geoXApiKey
     }
   })
-
-  console.log('Before all tests');
 });
 
 test('Geocode by Address y ubigeo', async () => {

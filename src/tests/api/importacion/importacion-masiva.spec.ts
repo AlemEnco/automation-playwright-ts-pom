@@ -1,5 +1,6 @@
 import { test, expect, request, APIRequestContext } from '@playwright/test';
-import fileData from '../../../dataPrueba/file.json';
+import fileData from '../../../testData/file.json';
+import ApiJson from '../../../testData/importData.json'; // para llamar el archivo como un formato json para el body
 import { environment } from '../../../config/environment';
 
 /**
@@ -13,23 +14,16 @@ test.beforeAll(async () => {
   baseUrl = await request.newContext({
     baseURL: environment.apiBaseUrlImportacionDev,
     extraHTTPHeaders: {
-      Accept: 'application/json'
+      Accept: 'application/json',
+      "Content-Type": 'application/json'
     }
   })
-
-  console.log('Before all tests');
 });
 
 test('Flujo completo: login, importación y validación de errores', async () => {
   // 1. Login: POST /auth
   const authResponse = await baseUrl.post("/auth", {
-    data: {
-      username: "user_import_excel",
-      password: "querSiANORDIuSENtIcSTatESchYDIon",
-      grant_type: "password",
-      client_id: "import_excel",
-      client_secret: "import"
-    }
+    data: ApiJson.loginData // aquí llamo el archivo json con los datos del login
   });
 
   expect(authResponse.status()).toBe(200);
@@ -84,9 +78,4 @@ test('Flujo completo: login, importación y validación de errores', async () =>
   } else {
     console.log('✅ Todos los envíos son válidos.');
   }
-});
-
-
-test('should fail login with invalid credentials', async () => {
-
 });
