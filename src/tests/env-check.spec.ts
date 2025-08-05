@@ -1,4 +1,4 @@
-import { test, expect, request } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { environment } from '../config/environment';
 
 test.describe('Environment and URLs validation', () => {
